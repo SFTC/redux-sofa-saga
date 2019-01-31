@@ -22,7 +22,6 @@ import {
 import config from './config';
 
 const { notification } = config;
-// import { makeSelectPlatformAuth } from './selectors';
 
 export const getSagaFetchActionType = actionType => actionType && actionType.split('_')[1];
 
