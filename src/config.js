@@ -19,5 +19,21 @@ const noAuth = (result) => {
 
 defaultConfig.fetchFailHandlers = [noAuth];
 
+export class Config {
+  constructor(config) {
+    this.setConfig(config);
+  }
+
+  getConfig() {
+    return this.config;
+  }
+
+  setConfig(config) {
+    this.config = {
+      ...defaultConfig,
+      ...config,
+    };
+  }
+}
 
 export default defaultConfig;

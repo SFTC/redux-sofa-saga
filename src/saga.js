@@ -19,9 +19,9 @@ import {
   FATCH_ACTION_ERROR_PREFIX,
 } from './constants';
 
-import config from './config';
+import { Config } from './config';
 
-const { notification } = config;
+export const config = new Config();
 
 export const getSagaFetchActionType = actionType => actionType && actionType.split('_')[1];
 
@@ -34,6 +34,8 @@ export const getSagaFetchActionType = actionType => actionType && actionType.spl
  * }
  */
 function* fetchSaga(action) {
+  const { notification, fetchSuccess, fetchFailHandlers } = config.getConfig();
+
   try {
     // 若请求需要改变loading状态或者需要对异步设置开始、结束标志位，在action中加入loadingAction参数
     yield action.loadingAction && put(action.loadingAction(true));
@@ -45,7 +47,7 @@ function* fetchSaga(action) {
     yield action.loadingAction && put(action.loadingAction(false));
 
     if (result) {
-      if (config.fetchSuccess(result)) { // 【成功】
+      if (fetchSuccess(result)) { // 【成功】
         if (action.type.indexOf('_POST_') > -1) { // 预设只有post接口在正确时显示信息
           notification.success({
             message: '操作成功',
@@ -67,8 +69,8 @@ function* fetchSaga(action) {
           }
         }
       } else { // 【失败】
-        for (let i = 0; i < config.fetchFailHandlers.length; i += 1) {
-          if (config.fetchFailHandlers[i](result)) {
+        for (let i = 0; i < fetchFailHandlers.length; i += 1) {
+          if (fetchFailHandlers[i](result)) {
             return;
           }
         }
