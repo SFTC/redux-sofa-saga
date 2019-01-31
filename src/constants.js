@@ -1,0 +1,5 @@
+export const FATCH_ACTION_PREFIX = '@@FETCH_';
+export const FATCH_ACTION_SUCCESS_PREFIX = 'SUCCESS_';
+export const FATCH_ACTION_ERROR_PREFIX = 'ERROR_';
+
+export const USER_NOT_LOGIN_ERRNO = 110003;
