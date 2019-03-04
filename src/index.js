@@ -1,13 +1,14 @@
+import createSagaMiddleware from 'redux-saga';
 import saga, { config as userConfig } from './saga';
 
-const sofaSaga = {};
+const sagaMiddleware = createSagaMiddleware();
 
-sofaSaga.setConfig = (config) => {
-  userConfig.setConfig(config);
-};
-
-sofaSaga.runSaga = (sagaMiddleware) => {
+const SFSagaMiddleWare = {};
+SFSagaMiddleWare.runSaga = (config) => {
+  config && userConfig.setConfig(config);
   sagaMiddleware.run(saga);
+  return sagaMiddleware.run;
 };
+SFSagaMiddleWare.middleWare = sagaMiddleware;
 
-export default sofaSaga;
+export default SFSagaMiddleWare;

@@ -1,10 +1,8 @@
-import {
-  Middleware,
-} from 'redux';
+import { Middleware } from 'redux';
 
-declare const sofaSaga: {
-  setConfig: (config: object) => void;
-  runSaga: (middleware: Middleware) => void;
+declare const SFSagaMiddleWare: {
+  middleWare: Middleware;
+  runSaga: (config?: object) => any;
 }
 
-export default sofaSaga;
+export default SFSagaMiddleWare;
